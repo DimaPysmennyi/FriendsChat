@@ -22,4 +22,8 @@ text_input = ctk.CTkEntry(
     textvariable= text
 )
 
-text_input.place(x = 200, y = 540, anchor = ctk.CENTER)
+text_input.place(
+    x = m_app.main_app.FRAME3._current_width // 2 - 37,
+    y = m_app.main_app.FRAME3._current_height // 2,
+    anchor = ctk.CENTER
+)

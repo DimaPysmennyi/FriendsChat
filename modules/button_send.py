@@ -2,31 +2,37 @@ import customtkinter as ctk
 import modules.screen_app as m_app
 import modules.text_input as m_input
 import modules.create_frame as m_frame
+import modules.create_form_frame as m_form
 
 button_width = 70
 button_height = 50
 margin_left = 50
 message_y = 20
 button_color = "orange"
+counter = 1
 
 
-class MessageFrame(m_frame.My_Frame):
-    def __init__(self, text, font, master, width, height, border_width, **kwargs):
-        super().__init__(text, font, master, width, height, border_width, **kwargs)
-        self.NICK = ctk.CTkLabel(master=self, text="Дмитро", font=ctk.CTkFont("Arial", 15))
-        self.NICK.place(x = 10, y = 2, anchor=ctk.NW)
 
 def send_message():
     global message_y
-    # msg_frame = m_frame.My_Frame(text=None, master=m_app.main_app.FRAME3, width=480, height=50, border_width=3)
-    # button_label = ctk.CTkLabel(
-    #     master = msg_frame, 
-    #     text = m_input.text.get(),
-    #     font = m_input.font_size
-    # )
-    msg_frame = MessageFrame(text=m_input.text.get(), font= m_input.font_size, master=m_app.main_app.FRAME3, width=450, height=80, border_width=3)
-    msg_frame.place(x=50,y=message_y)
-    message_y += 80
+    global counter
+
+    if counter == 2:
+        msg_frame = m_form.MessageFrame(text= m_input.text.get(), font= m_input.font_size, username= "Николай", master= m_app.main_app.FRAME4, width= 200, height= 60, border_width= 3)
+        msg_frame.place_left()
+        msg_frame.place(x=10,y=message_y)
+        message_y += 60
+        counter = 1
+    else:
+        msg_frame = m_form.MessageFrame(text= m_input.text.get(), font= m_input.font_size, username= "Дмитро", master= m_app.main_app.FRAME4, width= 200, height= 60, border_width= 3)
+        msg_frame.place_right()
+        msg_frame.place(x=300,y=message_y)
+        message_y += 60
+        counter = 2
+    print(counter)
+
+    
+
 
 send_button = ctk.CTkButton(
     master = m_app.main_app.FRAME3, 
@@ -38,7 +44,7 @@ send_button = ctk.CTkButton(
 )
 
 send_button.place(
-    x = 360, #m_app.main_app.APP_WIDTH // 2 + m_input.width_input // 2 + margin_left 
-    y = 540, #m_app.main_app.APP_HEIGHT - button_height // 2
+    x = m_app.main_app.FRAME3._current_width // 2 + m_input.width_input // 2, 
+    y = m_app.main_app.FRAME3._current_height - button_height, 
     anchor = ctk.CENTER
 )
